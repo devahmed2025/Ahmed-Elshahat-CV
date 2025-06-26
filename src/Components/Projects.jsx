@@ -1,4 +1,3 @@
-
 import { DiReact } from "react-icons/di";
 import {
   SiMongodb,
@@ -8,6 +7,9 @@ import {
   SiDocker,
   SiGoogle,
 } from "react-icons/si";
+
+import { TbDatabaseSearch } from "react-icons/tb"; // Alternative query icon
+import { SiReactquery, SiSupabase, SiStyledcomponents } from "react-icons/si";
 import {
   FaLink,
   FaCode,
@@ -161,16 +163,18 @@ const ImageGallery = ({ images, projectName }) => {
 };
 
 const ProjectBox = ({ item }) => {
-  const iconMap = {
-    react: DiReact,
-    node: SiNodedotjs,
-    mongodb: SiMongodb,
-    redux: SiRedux,
-    stripe: SiStripe,
-    docker: SiDocker,
-    google: SiGoogle,
-  };
-
+const iconMap = {
+  react: DiReact,
+  node: SiNodedotjs,
+  mongodb: SiMongodb,
+  redux: SiRedux,
+  stripe: SiStripe,
+  docker: SiDocker,
+  google: SiGoogle,
+  supabase: SiSupabase,
+  reactquery: SiReactquery,
+  styledcomponents: SiStyledcomponents,
+};
   const projectIconMap = {
     "LMS Platform (Dev-Hub)": (
       <FaGraduationCap size={60} className="text-emerald-400" />
@@ -360,25 +364,64 @@ const Projects = ({ AllBtn = false, moreBtn = true, backBtn = false }) => {
         },
       ],
     },
+    {
+      id: 5,
+      name: "The Cabin Hotel",
+      linkProject: "https://the-cabin-hotel.netlify.app/",
+      linkProjectGH: "https://github.com/devahmed2025/The-Cabin-Hotel",
+      tech: "React.js, Supabase, React Query, Styled Components, Context API, LocalStorage Auth, date-fns",
+      techIcons: ["react", "supabase", "reactquery", "styledcomponents"],
+      status: "",
+      description:
+        "The Cabin Hotel is a modern hotel management dashboard built entirely with React. It allows admins and hotel workers to manage cabins, create users, and handle bookings. Features include check-in/check-out flows, optional breakfast selection, full CRUD operations for cabins and bookings, and detailed analytics. Authentication is handled using Supabase Auth and local storage. The app includes a modular settings system to customize nearly every detail and supports dark mode. A public-facing client app for online booking is under development with Next.js.",
+      images: [
+        {
+          url: "https://res.cloudinary.com/djzcvjwuv/image/upload/v1750939341/screencapture-the-cabin-hotel-netlify-app-bookings-2025-06-26-14_49_18_m2yylo.jpg",
+          caption: "Bookings - View and manage current and past bookings",
+        },
+        {
+          url: "https://res.cloudinary.com/djzcvjwuv/image/upload/v1750939337/screencapture-the-cabin-hotel-netlify-app-dashboard-2025-06-26-14_48_14_dobmf6.jpg",
+          caption: "Dashboard - Analytics and hotel performance overview",
+        },
+        {
+          url: "https://res.cloudinary.com/djzcvjwuv/image/upload/v1750939307/screencapture-the-cabin-hotel-netlify-app-users-2025-06-26-14_50_05_v7cul4.jpg",
+          caption: "Users - Manage hotel staff accounts",
+        },
+        {
+          url: "https://res.cloudinary.com/djzcvjwuv/image/upload/v1750939303/screencapture-the-cabin-hotel-netlify-app-account-2025-06-26-14_51_27_frkc0y.jpg",
+          caption: "Account - Manage your personal account settings",
+        },
+        {
+          url: "https://res.cloudinary.com/djzcvjwuv/image/upload/v1750939379/screencapture-the-cabin-hotel-netlify-app-checkin-169-2025-06-26-14_51_07_euuj5z.jpg",
+          caption:
+            "Check-in - Assign guests to their cabins with optional breakfast",
+        },
+      ],
+    },
   ];
 
-  const filterProjects = (filter) => {
-    setIsLoading(true);
-    let filteredProjects = [];
-    if (filter === "fav") {
-      filteredProjects = projectData.filter(
-        (item) => item.status === "favourite"
-      );
-    } else if (filter === "All") {
-      filteredProjects = projectData;
-    } else {
-      filteredProjects = projectData.filter((item) =>
-        item.tech.includes(filter)
-      );
-    }
-    setProjects(filteredProjects);
-    setTimeout(() => setIsLoading(false), 500);
-  };
+const filterProjects = (filter) => {
+  setIsLoading(true);
+  let filteredProjects = [];
+  
+  if (filter === "fav") {
+    filteredProjects = projectData.filter(item => item.status === "favourite");
+  } 
+  else if (filter === "All") {
+    filteredProjects = projectData;
+  } 
+  else {
+    filteredProjects = projectData.filter(item => {
+      // Normalize both strings for comparison
+      const normalizedTech = item.tech.toLowerCase().replace(/\./g, '');
+      const normalizedFilter = filter.toLowerCase().replace(/\./g, '');
+      return normalizedTech.includes(normalizedFilter);
+    });
+  }
+  
+  setProjects(filteredProjects);
+  setTimeout(() => setIsLoading(false), 500);
+};
 
   useEffect(() => {
     filterProjects("ReactJs");
