@@ -163,18 +163,18 @@ const ImageGallery = ({ images, projectName }) => {
 };
 
 const ProjectBox = ({ item }) => {
-const iconMap = {
-  react: DiReact,
-  node: SiNodedotjs,
-  mongodb: SiMongodb,
-  redux: SiRedux,
-  stripe: SiStripe,
-  docker: SiDocker,
-  google: SiGoogle,
-  supabase: SiSupabase,
-  reactquery: SiReactquery,
-  styledcomponents: SiStyledcomponents,
-};
+  const iconMap = {
+    react: DiReact,
+    node: SiNodedotjs,
+    mongodb: SiMongodb,
+    redux: SiRedux,
+    stripe: SiStripe,
+    docker: SiDocker,
+    google: SiGoogle,
+    supabase: SiSupabase,
+    reactquery: SiReactquery,
+    styledcomponents: SiStyledcomponents,
+  };
   const projectIconMap = {
     "LMS Platform (Dev-Hub)": (
       <FaGraduationCap size={60} className="text-emerald-400" />
@@ -398,30 +398,69 @@ const Projects = ({ AllBtn = false, moreBtn = true, backBtn = false }) => {
         },
       ],
     },
+    {
+      id: 6,
+      name: "The Cabin Hotel-Client-Site",
+      linkProject: "https://the-wild-oasis-ten-olive.vercel.app/",
+      linkProjectGH: "https://github.com/devahmed2025/The-Cabin-Hotel-NextJs",
+      tech: "Next.js, Supabase,SSR, SSG,CSR,Tailwind, Context API, LocalStorage Auth, date-fns",
+      techIcons: ["react", "supabase"],
+      status: "",
+      description:
+        "The Cabin Hotel is a modern hotel management client site built entirely with Next js. It allows users to book cabins cabins.",
+      images: [
+        {
+          url: "https://res.cloudinary.com/djzcvjwuv/image/upload/v1751558421/screencapture-the-wild-oasis-ten-olive-vercel-app-about-2025-07-03-18_57_30_ytdega.jpg",
+          caption: "Bookings - View and manage current and past bookings",
+        },
+        {
+          url: "https://res.cloudinary.com/djzcvjwuv/image/upload/v1751558421/screencapture-the-wild-oasis-ten-olive-vercel-app-cabins-130-2025-07-03-18_57_09_gfjxqh.jpg",
+          caption: "Dashboard - Analytics and hotel performance overview",
+        },
+        {
+          url: "https://res.cloudinary.com/djzcvjwuv/image/upload/v1751558420/screencapture-the-wild-oasis-ten-olive-vercel-app-cabins-2025-07-03-18_06_51_zcctbu.jpg",
+          caption: "Users - Manage hotel staff accounts",
+        },
+        {
+          url: "https://res.cloudinary.com/djzcvjwuv/image/upload/v1751558419/screencapture-the-wild-oasis-ten-olive-vercel-app-2025-07-03-18_56_28_dv4kas.jpg",
+          caption: "Account - Manage your personal account settings",
+        },
+        {
+          url: "https://res.cloudinary.com/djzcvjwuv/image/upload/v1751558418/screencapture-the-wild-oasis-ten-olive-vercel-app-account-2025-07-03-18_57_53_ou6ver.jpg",
+          caption:
+            "Check-in - Assign guests to their cabins with optional breakfast",
+        },
+        {
+          url: "https://res.cloudinary.com/djzcvjwuv/image/upload/v1751558417/screencapture-the-wild-oasis-ten-olive-vercel-app-account-reservations-2025-07-03-18_58_07_rwcztb.jpg",
+          caption:
+            "Check-in - Assign guests to their cabins with optional breakfast",
+        },
+      ],
+    },
   ];
 
-const filterProjects = (filter) => {
-  setIsLoading(true);
-  let filteredProjects = [];
-  
-  if (filter === "fav") {
-    filteredProjects = projectData.filter(item => item.status === "favourite");
-  } 
-  else if (filter === "All") {
-    filteredProjects = projectData;
-  } 
-  else {
-    filteredProjects = projectData.filter(item => {
-      // Normalize both strings for comparison
-      const normalizedTech = item.tech.toLowerCase().replace(/\./g, '');
-      const normalizedFilter = filter.toLowerCase().replace(/\./g, '');
-      return normalizedTech.includes(normalizedFilter);
-    });
-  }
-  
-  setProjects(filteredProjects);
-  setTimeout(() => setIsLoading(false), 500);
-};
+  const filterProjects = (filter) => {
+    setIsLoading(true);
+    let filteredProjects = [];
+
+    if (filter === "fav") {
+      filteredProjects = projectData.filter(
+        (item) => item.status === "favourite"
+      );
+    } else if (filter === "All") {
+      filteredProjects = projectData;
+    } else {
+      filteredProjects = projectData.filter((item) => {
+        // Normalize both strings for comparison
+        const normalizedTech = item.tech.toLowerCase().replace(/\./g, "");
+        const normalizedFilter = filter.toLowerCase().replace(/\./g, "");
+        return normalizedTech.includes(normalizedFilter);
+      });
+    }
+
+    setProjects(filteredProjects);
+    setTimeout(() => setIsLoading(false), 500);
+  };
 
   useEffect(() => {
     filterProjects("ReactJs");
